@@ -21,7 +21,7 @@ nano config.js
 ```
 
 ```
-docker run ghcr.io/vityaschel/reuploader:1.0.1 -v $(pwd)/.env:/root/app/.env -v $(pwd)/config.js:/root/app/config.js
+docker run ghcr.io/vityaschel/reuploader:1.0.2 -v $(pwd)/.env:/root/app/.env -v $(pwd)/config.js:/root/app/config.js -d
 ```
 
 Чтобы скопировать видеофайл из контейнера:

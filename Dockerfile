@@ -19,4 +19,4 @@ WORKDIR /app
 RUN /bin/sh -c 'apk add --no-cache python3 py3-pip nodejs ffmpeg gcc libc-dev'
 RUN /bin/sh -c '$(which pip) install --user --upgrade streamlink'
 
-ENTRYPOINT ['$(which node)', 'index.js']
+ENTRYPOINT ['node', 'index.js']
