@@ -22,11 +22,6 @@ git clone https://github.com/VityaSchel/reuploader && cd reuploader && npm i
 nano .env
 nano config.js
 ```
-4. Заполните src/secrets/accessToken и src/secrets/refreshToken (необязательно, только если захотите автоматическую загрузку видео на свой канал, см. YouTube API ниже)
-```
-node src/authorize.js
-```
-после чего скопируйте код авторизации в аргументе https://example.com/?code=[здесь код]&...
 
 ## Использование
 
@@ -41,11 +36,11 @@ CLIENT_SECRET=[client secret приложения в google console developers]
 VISITOR_TOKEN=[значение куки VISITOR_INFO1_LIVE с сайта youtube.com]
 ```
 
-Если у вас есть доступ к YouTube API (см. след пункт), то вы должны прописать CLIENT_ID и CLIENT_SECRET, а TELEGRAM_NOTIFICATION_CHAT_ID и TELEGRAM_NOTIFICATION_BOT_TOKEN необязательные и не будут использоваться.
+Если у вас **есть доступ** к YouTube API (см. след пункт), то вы должны прописать CLIENT_ID и CLIENT_SECRET, а TELEGRAM_NOTIFICATION_CHAT_ID и TELEGRAM_NOTIFICATION_BOT_TOKEN необязательные и не будут использоваться.
 
-Если у вас нет доступа к YouTube API, создайте бота в телеграме и запишите токен и ваш chat_id в .env. Если вам вообще ничего не хочется после конвертации, оставьте 4 поля пустыми и поставьте значение youtubeApiEnabled = null в config.js
+Если у вас **нет доступа** к YouTube API, создайте бота в телеграме и запишите токен из bot father и ваш chat_id в .env. Если вам вообще ничего не хочется после конвертации, оставьте 4 поля в .env пустыми и поставьте значение `youtubeApiEnabled = null` в config.js
 
-**Всё остальное в .env обязательно**
+**CHANNEL_ID и VISITOR_TOKEN в .env обязательно нужно заполнить**
 
 Файл config.js имеет следующий формат:
 
@@ -61,7 +56,7 @@ export const youtubeApiEnabled = false
 
 Название|Описание|Значения
 ---|---|---
-checksInterval|Интервалы, с которыми в разное время суток будет проверяться канал на наличие стрима. Например, если канал всегда стримит в 16:00 по мск, то вы можете поставить интервал в 10 секунд на проверку в это время, а в остальное время дня раз в 5 минут|Массив объектов { from: String, to: String, intervals: Number }
+checksInterval|Интервалы, с которыми в разное время суток будет проверяться канал на наличие стрима. Например, если канал всегда стримит в 16:00 по мск, то вы можете поставить интервал в 10 секунд на проверку в это время, а в остальное время дня раз в 5 минут|Массив объектов `{ from: String, to: String, intervals: Number }`
 defaultInterval|Интервал по-умолчанию, если не найдено значение в checksInterval|Число секунд
 youtubeApiEnabled|Если true то загружает видео на ютуб, если false отсылает уведомление в телеграм, если значение null, после конвертации ничего не делается|true/false/null
 
@@ -77,7 +72,7 @@ pm2 start 'npm start' --name='Stream Reuploader'
 
 ## YouTube API (необязательно включать)
 
-Если вы хотите автоматически загружать видео на ютуб, вам понадобится доступ к YouTube Data API. Его не так просто получить, потому что нужно заполнить специальную форму и получить одобрение от гугла. **Если вам достаточно просто автоматической записи, то следующие пункты вы можете пропустить, не заполнять CLIENT_ID и CLIENT_SECRET и установить youtubeApiEnabled = false в config.js**
+Если вы хотите автоматически загружать видео на ютуб, вам понадобится доступ к YouTube Data API. Его не так просто получить, потому что нужно заполнить специальную форму и получить одобрение от гугла. **Если вам достаточно просто автоматической записи, то следующие пункты вы можете пропустить, не заполнять CLIENT_ID и CLIENT_SECRET и установить `youtubeApiEnabled = false` в config.js**
 
 1. Перейдите в [Google Developers Console](https://console.cloud.google.com/projectcreate) и создайте проект
 2. Зайдите в Library и включите YouTube Data API
@@ -85,9 +80,9 @@ pm2 start 'npm start' --name='Stream Reuploader'
 4. Добавьте https://example.com в список разрешенных редиректов
 5. Скопируйте client id и client secret в .env файл
 6. Зайдите в OAuth consent screen -> Test users -> ADD USERS и добавьте почту аккаунта, на канал которого будут загружаться ролики
-7. Запустите `node src/authorize.js` и следуйте инструкциям, ваши токены запишутся в файлы secrets/accessToken и secrets/refreshToken
+7. Запустите `node src/authorize.js` и следуйте инструкциям после чего скопируйте код авторизации в аргументе https://example.com/?code=[здесь код]&..., ваши токены запишутся в файлы secrets/accessToken и secrets/refreshToken
 
-Теперь вы можете установить youtubeApiEnabled = true в config.js, но обратите внимание, что вы можете загрузить до 6 видео в сутки с помощью API, а далее превысите квоту (квота изменяется запросом в гугл по ссылке в форме ниже). Аккуратнее с тестами.
+Теперь вы можете установить `youtubeApiEnabled = true` в config.js, но обратите внимание, что вы можете загрузить до 6 видео в сутки с помощью API, а далее превысите квоту (квота изменяется запросом в гугл по ссылке в форме ниже). Аккуратнее с тестами.
 
 Более того, все загруженные через API видео будут заблокированы с пометкой "Условия и правила", это потому что с 2020 года необходимо ручное одобрение вашего кейса ютубом. Для этого необходимо заполнить форму: [https://support.google.com/youtube/contact/yt_api_form](https://support.google.com/youtube/contact/yt_api_form) запросите периодическое одобрение и заполните все поля. Никаких советов не могу дать, мне самому еще не одобрили. Если не одобрят, то придется загружать все видео вручную.
 
