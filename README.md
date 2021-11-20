@@ -21,7 +21,13 @@ nano config.js
 ```
 
 ```
-docker run ghcr.io/Vityaschel/reuploader:latest -v $(pwd)/*:/root/
+docker run ghcr.io/vityaschel/reuploader:1.0.1 -v $(pwd)/.env:/root/app/.env -v $(pwd)/config.js:/root/app/config.js
+```
+
+Чтобы скопировать видеофайл из контейнера:
+
+```
+docker cp [container id]:/root/app/video/[filename].mp4 ~/reuploader/
 ```
 
 ### Способ 2: для тех кто не осилил докер и контейнеры

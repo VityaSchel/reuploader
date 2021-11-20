@@ -45,6 +45,7 @@ async function checkIfStreaming() {
       })
       fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_NOTIFICATION_BOT_TOKEN}/sendMessage?${params}`)
     }
+    planDelayedExecution()
   } else {
     planDelayedExecution()
   }
