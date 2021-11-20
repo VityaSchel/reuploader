@@ -1,0 +1,13 @@
+.git
+.DS_Store
+.env
+
+src/video/*
+!src/video/.gitkeep
+!src/video/fragments
+
+src/secrets/*
+!src/secrets/.gitkeep
+
+src/video/fragments/*
+!src/video/fragments/cut.js
