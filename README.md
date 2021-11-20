@@ -16,12 +16,13 @@
 ```
 git clone https://github.com/VityaSchel/reuploader && cd reuploader && npm i
 ```
-2. Заполните .env файл и по желанию config.js (см. формат ниже)
+2. Установите [nodejs 16+](https://nodejs.org/en/download/), [python 3](https://www.python.org/downloads/), [pip](https://pip.pypa.io/en/stable/installation/), [streamlink **с помощью pip**](https://streamlink.github.io/install.html#pypi-package-and-source-code) и [ffmpeg](https://www.ffmpeg.org/download.html). Все они должны быть доступны из командной строки (добавлены в переменную PATH)
+3. Заполните .env файл и по желанию config.js, см. формат ниже (nano — обычный текстовый редактор)
 ```
 nano .env
 nano config.js
 ```
-3. Заполните src/secrets/accessToken и src/secrets/refreshToken (необязательно, только если захотите автоматическую загрузку видео на свой канал, см. YouTube API ниже)
+4. Заполните src/secrets/accessToken и src/secrets/refreshToken (необязательно, только если захотите автоматическую загрузку видео на свой канал, см. YouTube API ниже)
 ```
 node src/authorize.js
 ```
@@ -68,7 +69,7 @@ youtubeApiEnabled|Если true то загружает видео на ютуб
 
 Изменить название и описание загружаемых видео можно в файле /src/upload.js, а текст уведомления в /index.js
 
-После всего проделанного просто запустите скрипт на фоне, например с помощью process manager 2:
+После всего проделанного просто запустите скрипт на фоне, например с помощью [process manager 2](https://pm2.keymetrics.io/):
 
 ```
 pm2 start 'npm start' --name='Stream Reuploader'
