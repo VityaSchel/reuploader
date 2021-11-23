@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 
 export default function getStreams(url, start, end, filename) {
-  const youtubedl = spawn('youtube-dl', ['-f', '18', '--get-url', url])
+  const youtubedl = spawn('youtube-dl', ['-f', '22', '--get-url', url])
   youtubedl.stdout.on('data', data => {
     cut(data.toString('utf8').split('\n')[0], start, end, filename)
   })

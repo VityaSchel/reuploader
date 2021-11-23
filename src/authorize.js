@@ -1,3 +1,4 @@
+import './dotenvConfig.js'
 import readline from 'readline'
 import fetch from 'node-fetch'
 import fs from 'fs/promises'

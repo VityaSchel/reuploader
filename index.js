@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import './src/dotenvConfig.js'
 import fetch from 'node-fetch'
 import isStreaming from './src/isStreaming.js'
 import record from './src/record.js'
