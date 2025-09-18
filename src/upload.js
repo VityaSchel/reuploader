@@ -24,7 +24,7 @@ export default async function upload(filename, isCli = false) {
       body: JSON.stringify(
         {
           snippet: {
-            title: `Стрим GoStudy от ${today.getDate()}.${today.getMonth()}.${today.getFullYear()} с ответами на вопросы`,
+            title: `Стрим GoStudy от ${today.getDate()}.${today.getMonth()+1}.${today.getFullYear()} с ответами на вопросы`,
             description: 'Запись сделана и загружена в YouTube автоматически. Оригинальная трансляция, скорее всего, удалена. Фидбэк: gostudystreams@gmail.com'
           },
           status: {
